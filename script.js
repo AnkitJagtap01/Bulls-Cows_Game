@@ -2,11 +2,21 @@ let secretNumber = generateSecretNumber();
 let attempts = 0;
 
 function generateSecretNumber() {
-    let digits = new Set();
-    while (digits.size < 4) {
-        digits.add(Math.floor(Math.random() * 10));
+    let digits = [];
+    while (digits.length < 4) {
+        let newDigit = Math.floor(Math.random() * 10);
+        if (!digits.includes(newDigit)) {
+            digits.push(newDigit);
+        }
     }
-    return Array.from(digits).join('');
+    return digits.join('');
+}
+
+function updateHistory(guess, bulls, cows) {
+    let historyElement = document.getElementById('history');
+    let newEntry = document.createElement("div");
+    newEntry.innerText = `Guess: ${guess} - Bulls: ${bulls}, Cows: ${cows}`;
+    historyElement.prepend(newEntry);
 }
 
 function checkGuess() {
@@ -29,10 +39,13 @@ function checkGuess() {
     attempts++;
     document.getElementById('result').innerText = `Guess: ${guess}\nBulls: ${bulls}, Cows: ${cows}\nAttempts: ${attempts}`;
 
+    updateHistory(guess, bulls, cows);
+
     if (bulls === 4) {
         alert("Congratulations! You've guessed the right number!");
         secretNumber = generateSecretNumber();
         attempts = 0;
+        document.getElementById('history').innerHTML = '';
     }
 }
 
