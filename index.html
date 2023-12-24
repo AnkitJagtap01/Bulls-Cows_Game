@@ -1,19 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bulls and Cows Game</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div id="game-container">
+        <div id="info-panel">
+            <div id="time-taken">Time: 00:00</div>
+            <div id="attempts-made">Attempts: 0</div>
+        </div>
         <h1>Bulls and Cows</h1>
-        <input type="text" id="guess" maxlength="4" placeholder="Enter your guess">
-        <button onclick="checkGuess()">Guess</button>
+        <div id="control-buttons">
+            <button onclick="startGame()">Start</button>
+            <button onclick="pauseTimer()" id="pause-button">Pause</button>
+            <button onclick="resumeTimer()" id="resume-button" disabled>Resume</button>
+            <button onclick="passGame()">Pass</button>
+        </div>
+        <div id="input-section">
+            <input type="text" id="guess1" maxlength="1" class="guess-input">
+            <input type="text" id="guess2" maxlength="1" class="guess-input">
+            <input type="text" id="guess3" maxlength="1" class="guess-input">
+            <input type="text" id="guess4" maxlength="1" class="guess-input">
+            <button onclick="checkGuess()">Guess</button>
+        </div>
         <div id="result"></div>
         <div id="history"></div>
     </div>
     <script src="script.js"></script>
 </body>
+
 </html>
