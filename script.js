@@ -2,6 +2,15 @@ let secretNumber = generateSecretNumber();
 let attempts = 0;
 let timer, startTime;
 let timerRunning = false;
+let previousGuesses = new Set(); // Store previous guesses
+
+function enableGameControls(enable) {
+    document.getElementById("pause-button").disabled = !enable;
+    document.getElementById("resume-button").disabled = true; // Always keep resume disabled initially
+    document.getElementById("pass-button").disabled = !enable;
+    document.getElementById("guess-button").disabled = !enable;
+    document.querySelectorAll(".guess-input").forEach(input => input.disabled = !enable);
+}
 
 function generateSecretNumber() {
     let digits = [];
@@ -17,10 +26,11 @@ function generateSecretNumber() {
 
 function startGame() {
     if (!timerRunning) {
+        enableGameControls(true);
         startTime = new Date();
         timer = setInterval(updateTime, 1000);
         timerRunning = true;
-        document.getElementById("resume-button").disabled = true;
+        document.getElementById("start-button").disabled = true;
     }
 }
 
@@ -28,6 +38,7 @@ function pauseTimer() {
     clearInterval(timer);
     timerRunning = false;
     document.getElementById("resume-button").disabled = false;
+    setGuessingEnabled(false); // Disable guessing when the game is paused
 }
 
 function resumeTimer() {
@@ -36,19 +47,40 @@ function resumeTimer() {
         timer = setInterval(updateTime, 1000);
         timerRunning = true;
         document.getElementById("resume-button").disabled = true;
+        setGuessingEnabled(true); // Enable guessing when the game is resumed
     }
+}
+
+function setGuessingEnabled(enabled) {
+    document.getElementById("guess-button").disabled = !enabled;
+    document.querySelectorAll(".guess-input").forEach(input => input.disabled = !enabled);
 }
 
 function passGame() {
     clearInterval(timer);
     alert("The number was " + secretNumber);
-    secretNumber = generateSecretNumber(); // Start a new game
-    document.getElementById("history").innerHTML = "";
-    document.getElementById("result").innerHTML = "";
+    resetGame();
+}
+
+function resetGame() {
+    // Reset the game state
+    secretNumber = generateSecretNumber(); // Generate a new secret number
+    previousGuesses.clear(); // Clear previous guesses
     attempts = 0;
     document.getElementById("attempts-made").innerText = "Attempts: 0";
-    // Reset timer display
+    document.getElementById("history").innerHTML = "";
+    document.getElementById("result").innerHTML = "";
     document.getElementById("time-taken").innerText = "Time: 00:00";
+    timerRunning = false;
+
+    // Reset input fields and disable controls
+    for (let i = 1; i <= 4; i++) {
+        document.getElementById(`guess${i}`).value = '';
+    }
+    enableGameControls(false);
+
+    // Enable start button for a new game
+    document.getElementById("start-button").disabled = false;
 }
 
 function updateTime() {
@@ -78,6 +110,13 @@ function checkGuess() {
         return;
     }
 
+    // Prevent repeating the same guess
+    if (previousGuesses.has(guess)) {
+        alert("You have already guessed this number. Try a different number.");
+        return;
+    }
+    previousGuesses.add(guess);
+
     let bulls = 0, cows = 0;
     for (let i = 0; i < 4; i++) {
         if (guess[i] === secretNumber[i]) {
@@ -94,7 +133,13 @@ function checkGuess() {
     updateHistory(guess, bulls, cows);
 
     if (bulls === 4) {
+        clearInterval(timer);
         alert("Congratulations! You've guessed the right number!");
-        passGame(); // End the game and show the secret number
+        resetGame();
     }
 }
+
+window.onload = () => {
+    enableGameControls(false); // Disable game controls initially
+    setGuessingEnabled(false); // Also disable guessing initially
+};

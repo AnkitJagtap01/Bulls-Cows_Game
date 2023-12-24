@@ -16,17 +16,17 @@
         </div>
         <h1>Bulls and Cows</h1>
         <div id="control-buttons">
-            <button onclick="startGame()">Start</button>
-            <button onclick="pauseTimer()" id="pause-button">Pause</button>
+            <button onclick="startGame()" id="start-button">Start</button>
+            <button onclick="pauseTimer()" id="pause-button" disabled>Pause</button>
             <button onclick="resumeTimer()" id="resume-button" disabled>Resume</button>
-            <button onclick="passGame()">Pass</button>
+            <button onclick="passGame()" id="pass-button" disabled>Pass</button>
         </div>
         <div id="input-section">
-            <input type="text" id="guess1" maxlength="1" class="guess-input">
-            <input type="text" id="guess2" maxlength="1" class="guess-input">
-            <input type="text" id="guess3" maxlength="1" class="guess-input">
-            <input type="text" id="guess4" maxlength="1" class="guess-input">
-            <button onclick="checkGuess()">Guess</button>
+            <input type="text" id="guess1" maxlength="1" class="guess-input" disabled>
+            <input type="text" id="guess2" maxlength="1" class="guess-input" disabled>
+            <input type="text" id="guess3" maxlength="1" class="guess-input" disabled>
+            <input type="text" id="guess4" maxlength="1" class="guess-input" disabled>
+            <button onclick="checkGuess()" id="guess-button" disabled>Guess</button>
         </div>
         <div id="result"></div>
         <div id="history"></div>
