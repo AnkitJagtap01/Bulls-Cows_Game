@@ -8,15 +8,36 @@ body {
 }
 
 #game-container {
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
 }
 
-#info-panel {
+#top-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+#high-scores {
     margin-bottom: 20px;
 }
 
-#input-section {
-    margin: 20px 0;
+#notes {
+    width: 200px;
+    height: 300px;
+    resize: none;
+}
+
+#main-game {
+    flex-grow: 1;
+    text-align: center;
+}
+
+#info-panel,
+#control-buttons,
+#input-section,
+.history-container {
+    margin: 10px 0;
 }
 
 .guess-input {
@@ -33,10 +54,33 @@ button {
     cursor: pointer;
 }
 
-#history {
-    margin-top: 20px;
+.history-container {
     max-height: 200px;
     overflow-y: auto;
-    border-top: 1px solid #ccc;
-    padding-top: 10px;
+}
+
+.history-entry {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.digit-box {
+    width: 40px;
+    margin-right: 5px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+.bulls-cows-info {
+    margin-left: 10px;
+}
+
+#player-info {
+    margin-bottom: 20px;
+}
+
+#player-name {
+    margin-right: 10px;
 }

@@ -10,26 +10,36 @@
 
 <body>
     <div id="game-container">
-        <div id="info-panel">
-            <div id="time-taken">Time: 00:00</div>
-            <div id="attempts-made">Attempts: 0</div>
+        <div id="player-info">
+            <input type="text" id="player-name" placeholder="Enter your name">
+            <button onclick="submitName()">Submit Name</button>
         </div>
-        <h1>Bulls and Cows</h1>
-        <div id="control-buttons">
-            <button onclick="startGame()" id="start-button">Start</button>
-            <button onclick="pauseTimer()" id="pause-button" disabled>Pause</button>
-            <button onclick="resumeTimer()" id="resume-button" disabled>Resume</button>
-            <button onclick="passGame()" id="pass-button" disabled>Pass</button>
+        <div id="top-section">
+            <div id="high-scores">High Scores</div>
+            <textarea id="notes" placeholder="Rough work..."></textarea>
         </div>
-        <div id="input-section">
-            <input type="text" id="guess1" maxlength="1" class="guess-input" disabled>
-            <input type="text" id="guess2" maxlength="1" class="guess-input" disabled>
-            <input type="text" id="guess3" maxlength="1" class="guess-input" disabled>
-            <input type="text" id="guess4" maxlength="1" class="guess-input" disabled>
-            <button onclick="checkGuess()" id="guess-button" disabled>Guess</button>
+        <div id="main-game">
+            <div id="info-panel">
+                <div id="time-remaining">Time Remaining: 10:00</div>
+                <div id="attempts-made">Attempts: 0</div>
+                <div id="current-score">Score: 0</div>
+            </div>
+            <div id="control-buttons">
+                <button onclick="startGame()" id="start-button">Start</button>
+                <button onclick="pauseTimer()" id="pause-button" disabled>Pause</button>
+                <button onclick="resumeTimer()" id="resume-button" disabled>Resume</button>
+                <button onclick="passGame()" id="pass-button" disabled>Pass</button>
+            </div>
+            <div id="input-section">
+                <input type="text" id="guess1" maxlength="1" class="guess-input" disabled>
+                <input type="text" id="guess2" maxlength="1" class="guess-input" disabled>
+                <input type="text" id="guess3" maxlength="1" class="guess-input" disabled>
+                <input type="text" id="guess4" maxlength="1" class="guess-input" disabled>
+                <button onclick="checkGuess()" id="guess-button" disabled>Guess</button>
+            </div>
+            <div id="result"></div>
+            <div id="history" class="history-container"></div>
         </div>
-        <div id="result"></div>
-        <div id="history"></div>
     </div>
     <script src="script.js"></script>
 </body>
